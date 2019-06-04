@@ -10,6 +10,7 @@
   "jsnext:main": "dist/es/index.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "yarn build:css&& yarn build:es",
     "build:types": "flow-copy-source --ignore \"**/*.{jest,e2e,ssr,example}.js\" source/WindowScroller dist/es/WindowScroller && flow-copy-source --ignore \"**/*.{jest,e2e,ssr,example}.js\" source/AutoSizer dist/es/AutoSizer",
     "build": "npm run build:commonjs && npm run build:css && npm run build:es && npm run build:demo && npm run build:umd",
     "build:commonjs": "npm run clean:commonjs && cross-env NODE_ENV=commonjs babel source --out-dir dist/commonjs",
@@ -31,14 +32,13 @@
     "prettier": "prettier --write '{playground,source}/**/*.js'",
     "prettier:diff": "prettier --list-different '{playground,source}/**/*.js'",
     "postpublish": "npm run deploy",
-    "prepublish": "npm run build",
+    "prepublish1": "npm run build",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --config webpack.config.dev.js",
     "test": "npm run test:jest",
     "test:jest": "jest --no-watchman --runInBand",
     "test:ci": "jest --no-watchman --maxWorkers 2 --coverage && codecov",
     "watch": "watch 'clear && npm run test -s' source",
-    "watch:jest": "jest --no-watchman --watch",
-    "precommit": "lint-staged"
+    "watch:jest": "jest --no-watchman --watch"
   },
   "lint-staged": {
     "*.{js,md}": [
@@ -139,11 +139,11 @@
     "flow-copy-source": "^1.2.1",
     "gh-pages": "^1.0.0",
     "html-webpack-plugin": "^2.30.1",
-    "husky": "^0.14.3",
+    "husky": "^2.3.0",
     "immutable": "^3.7.5",
     "jest": "^22.0.4",
     "jest-environment-puppeteer": "^1.1.1",
-    "lint-staged": "^7.0.4",
+    "lint-staged": "^8.1.7",
     "postcss": "^6.0.14",
     "postcss-cli": "^4.1.1",
     "postcss-loader": "^2.0.9",
@@ -184,5 +184,10 @@
     "transform": [
       "loose-envify"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

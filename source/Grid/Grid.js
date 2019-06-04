@@ -981,6 +981,7 @@ class Grid extends React.PureComponent<Props, State> {
       style,
       tabIndex,
       width,
+      Component = 'div',
     } = this.props;
     const {instanceProps, needToResetStyleCache} = this.state;
 
@@ -1045,7 +1046,7 @@ class Grid extends React.PureComponent<Props, State> {
       childrenToDisplay.length === 0 && height > 0 && width > 0;
 
     return (
-      <div
+      <Component
         ref={this._setScrollingContainerRef}
         {...containerProps}
         aria-label={this.props['aria-label']}
@@ -1077,7 +1078,7 @@ class Grid extends React.PureComponent<Props, State> {
           </div>
         )}
         {showNoContentRenderer && noContentRenderer()}
-      </div>
+      </Component>
     );
   }
 
